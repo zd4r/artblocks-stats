@@ -24,6 +24,8 @@ func (uc *CollectionUseCase) Stats(ctx context.Context, c entity.Collection) (en
 		return entity.Collection{}, fmt.Errorf("CollectionUseCase - GetHoldersCount - uc.webAPI.GetHolders: %w", err)
 	}
 
+	collection.Holders = make([]entity.Holder, collection.HoldersCount)
+
 	collection, err = uc.webAPI.GetHolders(collection)
 	if err != nil {
 		return entity.Collection{}, fmt.Errorf("CollectionUseCase - Stats - uc.webAPI.GetHolders: %w", err)
