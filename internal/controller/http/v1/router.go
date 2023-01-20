@@ -10,7 +10,6 @@ import (
 func NewRouter(handler *echo.Echo, l *zerolog.Logger, c usecase.Collection) {
 
 	// Middleware
-	handler.Use(middleware.Logger())
 	handler.Use(middleware.Recover())
 	handler.Use(middleware.RequestLoggerWithConfig(middleware.RequestLoggerConfig{
 		LogURI:    true,
