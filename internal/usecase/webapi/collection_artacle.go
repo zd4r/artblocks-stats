@@ -55,11 +55,11 @@ func (a *ArtacleWebAPI) GetHoldersCount(collection entity.Collection) (entity.Co
 type GetHoldersResp struct {
 	OwnersProfit []struct {
 		Owner                 string  `json:"owner"`
-		BalanceOut            int     `json:"balanceOut"`
+		BalanceOut            float64 `json:"balanceOut"`
 		BalanceIn             float64 `json:"balanceIn"`
 		BalanceAll            float64 `json:"balanceAll"`
 		TokenDelta            int     `json:"tokenDelta"`
-		BalanceDeltaOut       int     `json:"balanceDeltaOut"`
+		BalanceDeltaOut       float64 `json:"balanceDeltaOut"`
 		BalanceDeltaIn        float64 `json:"balanceDeltaIn"`
 		BalanceDelta          float64 `json:"balanceDelta"`
 		TokensAll             int     `json:"tokensAll"`
@@ -78,7 +78,7 @@ type GetHoldersResp struct {
 
 func (a *ArtacleWebAPI) GetHolders(collection entity.Collection) (entity.Collection, error) {
 
-	req, err := http.NewRequest(http.MethodGet, fmt.Sprintf("https://artacle.io/api/project/%d", collection.ID), nil)
+	req, err := http.NewRequest(http.MethodGet, fmt.Sprintf("https://artacle.io/api/project/%d/ownersProfitList", collection.ID), nil)
 	if err != nil {
 		return entity.Collection{}, fmt.Errorf("ArtacleWebAPI - GetHolders - http.NewRequest: %w", err)
 	}
@@ -105,10 +105,10 @@ func (a *ArtacleWebAPI) GetHolders(collection entity.Collection) (entity.Collect
 	}
 
 	var holder entity.Holder
-	for _, op := range respData.OwnersProfit {
+	for i, op := range respData.OwnersProfit {
 		holder.Address = op.Owner
 		holder.TokensAmount = op.TokensAll
-		collection.Holders = append(collection.Holders, holder)
+		collection.Holders[i] = holder
 	}
 
 	return collection, nil
@@ -125,13 +125,13 @@ type GetHolderScoresRest struct {
 		ScoreConfidence              float64 `json:"scoreConfidence"`
 		CommitmentScore              float64 `json:"commitmentScore"`
 		CommitmentScoreConfidence    float64 `json:"commitmentScoreConfidence"`
-		CommitmentScoreEstimations   int     `json:"commitmentScoreEstimations"`
+		CommitmentScoreEstimations   float64 `json:"commitmentScoreEstimations"`
 		TradingScore                 float64 `json:"tradingScore"`
 		TradingScoreConfidence       float64 `json:"tradingScoreConfidence"`
-		TradingScoreEstimations      int     `json:"tradingScoreEstimations"`
+		TradingScoreEstimations      float64 `json:"tradingScoreEstimations"`
 		PortfolioScore               float64 `json:"portfolioScore"`
 		PortfolioScoreConfidence     float64 `json:"portfolioScoreConfidence"`
-		PortfolioScoreEstimations    int     `json:"portfolioScoreEstimations"`
+		PortfolioScoreEstimations    float64 `json:"portfolioScoreEstimations"`
 		PortfolioTags                string  `json:"portfolioTags"`
 		LastScoresTs                 int64   `json:"lastScoresTs"`
 		CommitmentScoreConfidenceMin float64 `json:"commitmentScoreConfidenceMin"`
@@ -141,7 +141,7 @@ type GetHolderScoresRest struct {
 }
 
 func (a *ArtacleWebAPI) GetHolderScores(holder entity.Holder) (entity.Holder, error) {
-	req, err := http.NewRequest(http.MethodGet, fmt.Sprintf("https://artacle.io/api/user/%s", strings.ToLower(holder.Address)), nil)
+	req, err := http.NewRequest(http.MethodGet, fmt.Sprintf("https://artacle.io/api/user/%s/info", strings.ToLower(holder.Address)), nil)
 	if err != nil {
 		return entity.Holder{}, fmt.Errorf("ArtacleWebAPI - GetHolderScores - http.NewRequest: %w", err)
 	}
@@ -155,7 +155,7 @@ func (a *ArtacleWebAPI) GetHolderScores(holder entity.Holder) (entity.Holder, er
 	var respData GetHolderScoresRest
 	err = json.NewDecoder(resp.Body).Decode(&respData)
 	if err != nil {
-		return entity.Holder{}, fmt.Errorf("ArtacleWebAPI - GetHolders - json.Decode: %w", err)
+		return entity.Holder{}, fmt.Errorf("ArtacleWebAPI - GetHolderScores - json.Decode: %w", err)
 	}
 
 	holder.CommitmentScore = respData.Scores.CommitmentScore
