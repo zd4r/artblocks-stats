@@ -40,49 +40,10 @@ func (uc *CollectionUseCase) Stats(ctx context.Context, c entity.Collection) (en
 		collection.Holders[i] = holder
 	}
 
-	err = collectionHoldersDistribution(&collection)
+	err = collection.CountHoldersDistribution()
 	if err != nil {
 		return entity.Collection{}, fmt.Errorf("CollectionUseCase - Stats - collectionHoldersDistribution: %w", err)
 	}
 
 	return collection, nil
-}
-
-func collectionHoldersDistribution(c *entity.Collection) error {
-	for _, h := range c.Holders {
-		switch {
-		case h.CommitmentScore < 3.5:
-			c.HoldersDistribution.ByCommitmentScore["[3 - 3.5)"] += 1
-		case h.CommitmentScore >= 3.5 && h.CommitmentScore < 4:
-			c.HoldersDistribution.ByCommitmentScore["[3.5 - 4)"] += 1
-		case h.CommitmentScore >= 4 && h.CommitmentScore < 4.5:
-			c.HoldersDistribution.ByCommitmentScore["[4 - 4.5)"] += 1
-		case h.CommitmentScore >= 4.5 && h.CommitmentScore <= 5:
-			c.HoldersDistribution.ByCommitmentScore["[4 - 4.5]"] += 1
-		}
-
-		switch {
-		case h.PortfolioScore < 3.5:
-			c.HoldersDistribution.ByPortfolioScore["[3 - 3.5)"] += 1
-		case h.PortfolioScore >= 3.5 && h.PortfolioScore < 4:
-			c.HoldersDistribution.ByPortfolioScore["[3.5 - 4)"] += 1
-		case h.PortfolioScore >= 4 && h.PortfolioScore < 4.5:
-			c.HoldersDistribution.ByPortfolioScore["[4 - 4.5)"] += 1
-		case h.PortfolioScore >= 4.5 && h.PortfolioScore <= 5:
-			c.HoldersDistribution.ByPortfolioScore["[4 - 4.5]"] += 1
-		}
-
-		switch {
-		case h.TradingScore < 3.5:
-			c.HoldersDistribution.ByTradingScore["[3 - 3.5)"] += 1
-		case h.TradingScore >= 3.5 && h.TradingScore < 4:
-			c.HoldersDistribution.ByTradingScore["[3.5 - 4)"] += 1
-		case h.TradingScore >= 4 && h.TradingScore < 4.5:
-			c.HoldersDistribution.ByTradingScore["[4 - 4.5)"] += 1
-		case h.TradingScore >= 4.5 && h.TradingScore <= 5:
-			c.HoldersDistribution.ByTradingScore["[4 - 4.5]"] += 1
-		}
-	}
-
-	return nil
 }
