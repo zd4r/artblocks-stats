@@ -28,6 +28,6 @@ func NewRouter(handler *echo.Echo, l *zerolog.Logger, c usecase.Collection) {
 	// Routers
 	h := handler.Group("/v1")
 	{
-		newCollectionRoutes(h, c, l)
+		newCollectionsRoutes(h, c, l)
 	}
 }

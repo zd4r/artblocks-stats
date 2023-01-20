@@ -15,7 +15,7 @@ type collectionRoutes struct {
 	l *zerolog.Logger
 }
 
-func newCollectionRoutes(handler *echo.Group, c usecase.Collection, l *zerolog.Logger) {
+func newCollectionsRoutes(handler *echo.Group, c usecase.Collection, l *zerolog.Logger) {
 	r := &collectionRoutes{c, l}
 
 	handler.GET("/collections/:id", r.collectionStats())
