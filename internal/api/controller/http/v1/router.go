@@ -4,7 +4,7 @@ import (
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 	"github.com/rs/zerolog"
-	"github.com/zd4rova/artblocks-holders/internal/usecase"
+	"github.com/zd4rova/artblocks-stats/internal/api/usecase"
 )
 
 func NewRouter(handler *echo.Echo, l *zerolog.Logger, c usecase.Collection) {

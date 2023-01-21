@@ -3,7 +3,7 @@ package usecase
 import (
 	"context"
 
-	"github.com/zd4rova/artblocks-holders/internal/entity"
+	"github.com/zd4rova/artblocks-stats/internal/api/entity"
 )
 
 type (
