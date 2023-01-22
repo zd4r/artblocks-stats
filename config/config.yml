@@ -10,4 +10,6 @@ logger:
   rollbar_env: 'go-clean-template'
 
 postgres:
-  pool_max: 2
+  max_open_conns: 25
+  max_idle_conns: 25
+  max_idle_time: '5m'
