@@ -17,7 +17,7 @@ func NewCollection(w CollectionWebAPI) *CollectionUseCase {
 	}
 }
 
-func (uc *CollectionUseCase) Stats(ctx context.Context, c entity.Collection) (entity.Collection, error) {
+func (uc *CollectionUseCase) СalculateStats(ctx context.Context, c entity.Collection) (entity.Collection, error) {
 
 	collection, err := uc.webAPI.GetHoldersCount(c)
 	if err != nil {

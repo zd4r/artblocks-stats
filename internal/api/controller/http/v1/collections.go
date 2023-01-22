@@ -41,12 +41,12 @@ func (cr *collectionRoutes) collectionStats() echo.HandlerFunc {
 			},
 		}
 
-		collectionStats, err := cr.c.Stats(c.Request().Context(), collection)
+		collection, err = cr.c.СalculateStats(c.Request().Context(), collection)
 		if err != nil {
 			cr.l.Err(err).Msg("http - v1 - collectionStats - cr.c.Stats")
 			return echo.NewHTTPError(http.StatusInternalServerError, "failed getting collection stats")
 		}
 
-		return c.JSON(http.StatusOK, envelope{"collection": collectionStats})
+		return c.JSON(http.StatusOK, envelope{"collection": collection})
 	}
 }

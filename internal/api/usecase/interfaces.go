@@ -14,6 +14,6 @@ type (
 	}
 
 	Collection interface {
-		Stats(context.Context, entity.Collection) (entity.Collection, error)
+		СalculateStats(context.Context, entity.Collection) (entity.Collection, error)
 	}
 )
