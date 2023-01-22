@@ -28,8 +28,10 @@ type (
 	}
 
 	PG struct {
-		PoolMax int `env-required:"true" yaml:"pool_max" env:"PG_POOL_MAX"`
-		//URL     string `env-required:"true"                 env:"PG_URL"`
+		URL          string `env-required:"true"   env:"PG_URL"`
+		MaxOpenConns int    `yaml:"max_open_conns" env:"PG_MAX_OPEN_CONNS" env-default:"25"`
+		MaxIdleConns int    `yaml:"max_idle_conns" env:"PG_MAX_IDLE_CONNS" env-default:"25"`
+		MaxIdleTime  string `yaml:"max_idle_time"  env:"PG_MAX_IDLE_TIME"  env-default:"15m"`
 	}
 )
 
