@@ -1,5 +1,7 @@
 package entity
 
+import "time"
+
 type Collection struct {
 	ID                  int                 `json:"id"`
 	HoldersCount        int                 `json:"holders_count"`
@@ -14,11 +16,14 @@ type HoldersDistribution struct {
 }
 
 type Holder struct {
-	Address         string  `json:"address"`
-	TokensAmount    int     `json:"tokens_amount"`
-	CommitmentScore float64 `json:"commitment_score"`
-	PortfolioScore  float64 `json:"portfolio_score"`
-	TradingScore    float64 `json:"trading_score"`
+	ID              int64     `json:"-"`
+	UpdatedAt       time.Time `json:"-"`
+	Address         string    `json:"address"`
+	TokensAmount    int       `json:"tokens_amount"`
+	CommitmentScore float64   `json:"commitment_score"`
+	PortfolioScore  float64   `json:"portfolio_score"`
+	TradingScore    float64   `json:"trading_score"`
+	Version         int32     `json:"-"`
 }
 
 func (c *Collection) CountHoldersDistribution() error {
