@@ -22,7 +22,7 @@ func (r *HoldersRepo) InsertHolder(holder *entity.Holder) error {
 	query :=
 		`INSERT INTO holders (updated_at, address, commitment_score, portfolio_score, trading_score)
 		 VALUES ($1, $2, $3, $4, $5)
-		 RETURNING id, updated_at, version`
+		 RETURNING updated_at, version`
 
 	args := []interface{}{
 		time.Now(),
@@ -36,21 +36,18 @@ func (r *HoldersRepo) InsertHolder(holder *entity.Holder) error {
 	ctx, cancel := context.WithTimeout(context.Background(), 3*time.Second)
 	defer cancel()
 
-	return r.DB.QueryRowContext(ctx, query, args...).Scan(&holder.ID, &holder.UpdatedAt, &holder.Version)
+	return r.DB.QueryRowContext(ctx, query, args...).Scan(&holder.UpdatedAt, &holder.Version)
 }
 
 func (r *HoldersRepo) GetHolder(holder *entity.Holder) (*entity.Holder, error) {
-	if holder.ID < 1 {
-		return nil, ErrRecordNotFound
-	}
 
 	query :=
-		`SELECT id, updated_at, address, commitment_score, portfolio_score, trading_score, version
+		`SELECT updated_at, address, commitment_score, portfolio_score, trading_score, version
 		 FROM holders
-		 WHERE id = $1`
+		 WHERE address = $1`
 
 	args := []interface{}{
-		holder.ID,
+		holder.Address,
 	}
 
 	// TODO Fix: timeout hardcode
@@ -58,7 +55,6 @@ func (r *HoldersRepo) GetHolder(holder *entity.Holder) (*entity.Holder, error) {
 	defer cancel()
 
 	err := r.DB.QueryRowContext(ctx, query, args...).Scan(
-		&holder.ID,
 		&holder.UpdatedAt,
 		&holder.Address,
 		&holder.CommitmentScore,
@@ -83,7 +79,7 @@ func (r *HoldersRepo) UpdateHolder(holder *entity.Holder) error {
 	query :=
 		`UPDATE holders
 		 SET updated_at = $1, commitment_score = $2, portfolio_score = $3, trading_score = $4, version = version + 1
-		 WHERE id = $6 AND version = $6
+		 WHERE address = $6 AND version = $6
 		 RETURNING version`
 
 	args := []interface{}{
@@ -91,7 +87,7 @@ func (r *HoldersRepo) UpdateHolder(holder *entity.Holder) error {
 		holder.CommitmentScore,
 		holder.PortfolioScore,
 		holder.TradingScore,
-		holder.ID,
+		holder.Address,
 		holder.Version,
 	}
 

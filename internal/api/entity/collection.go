@@ -16,7 +16,6 @@ type HoldersDistribution struct {
 }
 
 type Holder struct {
-	ID              int64     `json:"-"`
 	UpdatedAt       time.Time `json:"-"`
 	Address         string    `json:"address"`
 	TokensAmount    int       `json:"tokens_amount"`
