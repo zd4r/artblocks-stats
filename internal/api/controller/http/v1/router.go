@@ -1,6 +1,8 @@
 package v1
 
 import (
+	"time"
+
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 	"github.com/rs/zerolog"
@@ -18,9 +20,8 @@ func NewRouter(handler *echo.Echo, l *zerolog.Logger, c usecase.Collection) {
 			l.Info().
 				Str("URI", v.URI).
 				Int("status", v.Status).
-				Str("latency", v.Latency.String()).
+				Str("response time", time.Now().Sub(v.StartTime).String()).
 				Msg("request")
-
 			return nil
 		},
 	}))
