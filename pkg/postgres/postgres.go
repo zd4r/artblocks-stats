@@ -21,7 +21,11 @@ type Config struct {
 	MaxIdleTime  string
 }
 
-func New(cfg *Config) (*sqlx.DB, error) {
+type Postgres struct {
+	DB *sqlx.DB
+}
+
+func New(cfg *Config) (*Postgres, error) {
 	db, err := sqlx.Open("postgres", cfg.URL)
 	if err != nil {
 		return nil, fmt.Errorf("postgres - New - sqlx.Open: %w", err)
@@ -44,5 +48,7 @@ func New(cfg *Config) (*sqlx.DB, error) {
 		return nil, fmt.Errorf("postgres - New - pg.Pool.PingContext: %w", err)
 	}
 
-	return db, nil
+	return &Postgres{
+		DB: db,
+	}, nil
 }
