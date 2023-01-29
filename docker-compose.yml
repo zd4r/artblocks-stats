@@ -24,7 +24,7 @@ services:
   collections-api:
     build:
       context: .
-      dockerfile: ./docker/Dockerfile
+      dockerfile: docker/Dockerfile-api
     image: collections-api
     environment:
       PG_URL: "postgres://user:pass@postgres/holders?sslmode=disable"
