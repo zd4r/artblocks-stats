@@ -152,6 +152,10 @@ func (a *ArtacleWebAPI) GetHolderScores(holder entity.Holder) (entity.Holder, er
 	}
 	defer resp.Body.Close()
 
+	if resp.StatusCode != 200 {
+		return holder, nil
+	}
+
 	var respData GetHolderScoresRest
 	err = json.NewDecoder(resp.Body).Decode(&respData)
 	if err != nil {
