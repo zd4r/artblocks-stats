@@ -13,6 +13,12 @@ type (
 		GetHolderScores(entity.Holder) (entity.Holder, error)
 	}
 
+	HoldersRepo interface {
+		Insert(entity.Holder) (entity.Holder, error)
+		Get(entity.Holder) (entity.Holder, error)
+		UpdateScores(entity.Holder) (entity.Holder, error)
+	}
+
 	Collection interface {
 		СalculateStats(context.Context, entity.Collection) (entity.Collection, error)
 	}
