@@ -7,16 +7,16 @@ import (
 )
 
 type (
-	CollectionWebAPI interface {
-		GetHoldersCount(entity.Collection) (entity.Collection, error)
-		GetHolders(entity.Collection) (entity.Collection, error)
-		GetHolderScores(entity.Holder) (entity.Holder, error)
-	}
-
 	HoldersRepo interface {
 		Insert(entity.Holder) (entity.Holder, error)
 		Get(entity.Holder) (entity.Holder, error)
 		UpdateScores(entity.Holder) (entity.Holder, error)
+	}
+	
+	CollectionWebAPI interface {
+		GetHoldersCount(entity.Collection) (entity.Collection, error)
+		GetHolders(entity.Collection) (entity.Collection, error)
+		GetHolderScores(entity.Holder) (entity.Holder, error)
 	}
 
 	Collection interface {
