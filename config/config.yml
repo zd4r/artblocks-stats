@@ -1,5 +1,5 @@
 app:
-  name: 'go-clean-template'
+  name: 'artblocks-stats'
   version: '1.0.0'
 
 http:
@@ -7,7 +7,6 @@ http:
 
 logger:
   log_level: 'debug'
-  rollbar_env: 'go-clean-template'
 
 postgres:
   max_open_conns: 25
