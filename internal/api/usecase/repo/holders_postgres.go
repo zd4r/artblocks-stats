@@ -7,6 +7,7 @@ import (
 	"time"
 
 	"github.com/jmoiron/sqlx"
+
 	"github.com/zd4rova/artblocks-stats/internal/api/entity"
 )
 
@@ -71,7 +72,7 @@ func (r *HoldersRepo) Get(holder entity.Holder) (entity.Holder, error) {
 	if err != nil {
 		switch {
 		case errors.Is(err, sql.ErrNoRows):
-			return entity.Holder{}, ErrRecordNotFound
+			return entity.Holder{}, entity.ErrHolderNotFound
 		default:
 			return entity.Holder{}, err
 		}
@@ -104,7 +105,7 @@ func (r *HoldersRepo) UpdateScores(holder entity.Holder) (entity.Holder, error) 
 	if err != nil {
 		switch {
 		case errors.Is(err, sql.ErrNoRows):
-			return entity.Holder{}, ErrEditConflict
+			return entity.Holder{}, entity.ErrUpdateScoresConflict
 		default:
 			return entity.Holder{}, err
 		}
