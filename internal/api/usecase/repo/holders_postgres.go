@@ -18,7 +18,7 @@ func New(db *sqlx.DB) *HoldersRepo {
 	return &HoldersRepo{db}
 }
 
-func (r *HoldersRepo) InsertHolder(holder *entity.Holder) error {
+func (r *HoldersRepo) Insert(holder entity.Holder) (entity.Holder, error) {
 	query :=
 		`INSERT INTO holders (updated_at, address, commitment_score, portfolio_score, trading_score)
 		 VALUES ($1, $2, $3, $4, $5)
@@ -36,10 +36,15 @@ func (r *HoldersRepo) InsertHolder(holder *entity.Holder) error {
 	ctx, cancel := context.WithTimeout(context.Background(), 3*time.Second)
 	defer cancel()
 
-	return r.DB.QueryRowContext(ctx, query, args...).Scan(&holder.UpdatedAt, &holder.Version)
+	err := r.DB.QueryRowContext(ctx, query, args...).Scan(&holder.UpdatedAt, &holder.Version)
+	if err != nil {
+		return entity.Holder{}, err
+	}
+
+	return holder, nil
 }
 
-func (r *HoldersRepo) GetHolder(holder *entity.Holder) (*entity.Holder, error) {
+func (r *HoldersRepo) Get(holder entity.Holder) (entity.Holder, error) {
 
 	query :=
 		`SELECT updated_at, address, commitment_score, portfolio_score, trading_score, version
@@ -66,16 +71,16 @@ func (r *HoldersRepo) GetHolder(holder *entity.Holder) (*entity.Holder, error) {
 	if err != nil {
 		switch {
 		case errors.Is(err, sql.ErrNoRows):
-			return nil, ErrRecordNotFound
+			return entity.Holder{}, ErrRecordNotFound
 		default:
-			return nil, err
+			return entity.Holder{}, err
 		}
 	}
 
 	return holder, nil
 }
 
-func (r *HoldersRepo) UpdateHolder(holder *entity.Holder) error {
+func (r *HoldersRepo) UpdateScores(holder entity.Holder) (entity.Holder, error) {
 	query :=
 		`UPDATE holders
 		 SET updated_at = $1, commitment_score = $2, portfolio_score = $3, trading_score = $4, version = version + 1
@@ -99,11 +104,11 @@ func (r *HoldersRepo) UpdateHolder(holder *entity.Holder) error {
 	if err != nil {
 		switch {
 		case errors.Is(err, sql.ErrNoRows):
-			return ErrEditConflict
+			return entity.Holder{}, ErrEditConflict
 		default:
-			return err
+			return entity.Holder{}, err
 		}
 	}
 
-	return nil
+	return holder, nil
 }
