@@ -14,13 +14,19 @@ func NewRouter(handler *echo.Echo, l *zerolog.Logger, c usecase.Collection) {
 	// Middleware
 	handler.Use(middleware.Recover())
 	handler.Use(middleware.RequestLoggerWithConfig(middleware.RequestLoggerConfig{
-		LogURI:    true,
-		LogStatus: true,
+		LogURI:       true,
+		LogStatus:    true,
+		LogMethod:    true,
+		LogRemoteIP:  true,
+		LogUserAgent: true,
 		LogValuesFunc: func(c echo.Context, v middleware.RequestLoggerValues) error {
 			l.Info().
 				Str("URI", v.URI).
+				Str("method", v.Method).
+				Str("ip", v.RemoteIP).
 				Int("status", v.Status).
-				Str("response time", time.Now().Sub(v.StartTime).String()).
+				Str("duration", time.Now().Sub(v.StartTime).String()).
+				Str("user-agent", v.UserAgent).
 				Msg("request")
 			return nil
 		},
