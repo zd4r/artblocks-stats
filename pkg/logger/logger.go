@@ -1,6 +1,7 @@
 package logger
 
 import (
+	"io"
 	"os"
 	"strings"
 	"time"
@@ -8,7 +9,7 @@ import (
 	"github.com/rs/zerolog"
 )
 
-func New(level string) *zerolog.Logger {
+func New(level string, structured bool) *zerolog.Logger {
 	switch strings.ToLower(level) {
 	case "error":
 		zerolog.SetGlobalLevel(zerolog.ErrorLevel)
@@ -22,10 +23,12 @@ func New(level string) *zerolog.Logger {
 		zerolog.SetGlobalLevel(zerolog.InfoLevel)
 	}
 
-	// Use for structured logs
-	// output := os.Stdout
+	var output io.Writer
+	output = zerolog.ConsoleWriter{Out: os.Stdout, TimeFormat: time.RFC3339}
+	if structured {
+		output = os.Stdout
+	}
 
-	output := zerolog.ConsoleWriter{Out: os.Stdout, TimeFormat: time.RFC3339}
 	logger := zerolog.New(output).With().Timestamp().Logger()
 
 	return &logger
