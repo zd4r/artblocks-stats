@@ -26,7 +26,8 @@ type (
 	}
 
 	Log struct {
-		Level string `env-required:"true" yaml:"log_level"   env:"LOG_LEVEL"`
+		Level      string `env-required:"true" yaml:"log_level"   env:"LOG_LEVEL"`
+		Structured bool   `yaml:"structured"   env:"STRUCTURED" env-default:"false"`
 	}
 
 	PG struct {
@@ -37,15 +38,13 @@ type (
 	}
 )
 
-func NewConfig() (*Config, error) {
+func New() (*Config, error) {
 	cfg := Config{}
 
 	dir, err := os.Getwd()
 	if err != nil {
 		log.Fatal(err)
 	}
-
-	fmt.Println("config path: " + dir)
 
 	err = cleanenv.ReadConfig(dir+"/config.yml", &cfg)
 	if err != nil {

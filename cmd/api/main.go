@@ -9,7 +9,7 @@ import (
 
 func main() {
 	// Configuration
-	cfg, err := config.NewConfig()
+	cfg, err := config.New()
 	if err != nil {
 		log.Fatalf("Config error: %v", err)
 	}
