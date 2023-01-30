@@ -1,0 +1,12 @@
+**/.env
+
+**/.dockerignore
+**/docker-compose*
+**/Dockerfile*
+
+**/.gitignore
+**/.git
+
+.idea/
+
+README.md
