@@ -12,7 +12,7 @@ type (
 		Get(entity.Holder) (entity.Holder, error)
 		UpdateScores(entity.Holder) (entity.Holder, error)
 	}
-	
+
 	CollectionWebAPI interface {
 		GetHoldersCount(entity.Collection) (entity.Collection, error)
 		GetHolders(entity.Collection) (entity.Collection, error)
@@ -21,5 +21,6 @@ type (
 
 	Collection interface {
 		СalculateStats(context.Context, entity.Collection) (entity.Collection, error)
+		GetHolders(context.Context, entity.Collection) (entity.Collection, error)
 	}
 )
