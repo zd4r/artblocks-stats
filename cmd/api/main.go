@@ -14,6 +14,6 @@ func main() {
 		log.Fatalf("Config error: %v", err)
 	}
 
-	// Run
+	// Run app
 	app.Run(cfg)
 }

@@ -14,6 +14,7 @@ type CollectionUseCase struct {
 	webAPI CollectionWebAPI
 }
 
+// NewCollection creates new collection use case
 func NewCollection(r HoldersRepo, w CollectionWebAPI) *CollectionUseCase {
 	return &CollectionUseCase{
 		repo:   r,
@@ -21,6 +22,7 @@ func NewCollection(r HoldersRepo, w CollectionWebAPI) *CollectionUseCase {
 	}
 }
 
+// СalculateStats gather holders of provided collection and calculate their distribution based on scores
 func (uc *CollectionUseCase) СalculateStats(ctx context.Context, c entity.Collection) (entity.Collection, error) {
 	collection, err := uc.GetHolders(ctx, c)
 	if err != nil {
@@ -35,6 +37,7 @@ func (uc *CollectionUseCase) СalculateStats(ctx context.Context, c entity.Colle
 	return collection, nil
 }
 
+// GetHolders gather holders of provided collection
 func (uc *CollectionUseCase) GetHolders(ctx context.Context, c entity.Collection) (entity.Collection, error) {
 	collection, err := uc.webAPI.GetHoldersCount(c)
 	if err != nil {

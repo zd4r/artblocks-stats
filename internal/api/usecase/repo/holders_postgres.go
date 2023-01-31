@@ -15,10 +15,12 @@ type HoldersRepo struct {
 	DB *sqlx.DB
 }
 
+// New creates new repo based on provided db
 func New(db *sqlx.DB) *HoldersRepo {
 	return &HoldersRepo{db}
 }
 
+// Insert adds new holder into db
 func (r *HoldersRepo) Insert(holder entity.Holder) (entity.Holder, error) {
 	query :=
 		`INSERT INTO holders (updated_at, address, commitment_score, portfolio_score, trading_score)
@@ -45,8 +47,8 @@ func (r *HoldersRepo) Insert(holder entity.Holder) (entity.Holder, error) {
 	return holder, nil
 }
 
+// Get returns holder based on provided holder address
 func (r *HoldersRepo) Get(holder entity.Holder) (entity.Holder, error) {
-
 	query :=
 		`SELECT updated_at, address, commitment_score, portfolio_score, trading_score, version
 		 FROM holders
@@ -81,6 +83,7 @@ func (r *HoldersRepo) Get(holder entity.Holder) (entity.Holder, error) {
 	return holder, nil
 }
 
+// UpdateScores updates holder's scores based on provided holder address
 func (r *HoldersRepo) UpdateScores(holder entity.Holder) (entity.Holder, error) {
 	query :=
 		`UPDATE holders

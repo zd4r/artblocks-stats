@@ -29,6 +29,7 @@ type HoldersCountResp []struct {
 	Index       int64 `json:"index"`
 }
 
+// GetHoldersCount fills holders count of provided collection in entity.Collection based on Artacle data
 func (a *ArtacleWebAPI) GetHoldersCount(collection entity.Collection) (entity.Collection, error) {
 	req, err := http.NewRequest(http.MethodGet, fmt.Sprintf("https://artacle.io/api/project/%d/ownersChart", collection.ID), nil)
 	if err != nil {
@@ -76,8 +77,8 @@ type GetHoldersResp struct {
 	} `json:"ownersProfit"`
 }
 
+// GetHolders fills holders of provided collection in entity.Collection based on Artacle data
 func (a *ArtacleWebAPI) GetHolders(collection entity.Collection) (entity.Collection, error) {
-
 	req, err := http.NewRequest(http.MethodGet, fmt.Sprintf("https://artacle.io/api/project/%d/ownersProfitList", collection.ID), nil)
 	if err != nil {
 		return entity.Collection{}, fmt.Errorf("ArtacleWebAPI - GetHolders - http.NewRequest: %w", err)
@@ -140,6 +141,7 @@ type GetHolderScoresRest struct {
 	} `json:"scores"`
 }
 
+// GetHolderScores fills scores of provided holder in entity.Holder based on Artacle data
 func (a *ArtacleWebAPI) GetHolderScores(holder entity.Holder) (entity.Holder, error) {
 	req, err := http.NewRequest(http.MethodGet, fmt.Sprintf("https://artacle.io/api/user/%s/info", strings.ToLower(holder.Address)), nil)
 	if err != nil {

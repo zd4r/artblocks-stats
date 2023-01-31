@@ -18,10 +18,10 @@ import (
 	"github.com/zd4rova/artblocks-stats/pkg/postgres"
 )
 
+// Run is main function continuation, which starts app
 func Run(cfg *config.Config) {
 	// Logger
 	l := logger.New(cfg.Log.Level, cfg.Log.Structured)
-
 	l.Info().Msg(fmt.Sprintf("⚡ init app [ name: %v, version: %v ]", cfg.Name, cfg.Version))
 
 	// Repository

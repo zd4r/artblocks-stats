@@ -9,8 +9,8 @@ import (
 	"github.com/zd4rova/artblocks-stats/internal/api/usecase"
 )
 
+// NewRouter creates new v1 router
 func NewRouter(handler *echo.Echo, l *zerolog.Logger, c usecase.Collection) {
-
 	// Middleware
 	handler.Use(middleware.Recover())
 	handler.Use(middleware.RequestLoggerWithConfig(middleware.RequestLoggerConfig{

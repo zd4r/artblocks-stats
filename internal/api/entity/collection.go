@@ -25,6 +25,7 @@ type Holder struct {
 	Version         int32     `json:"-"`
 }
 
+// CountHoldersDistribution calculate collection holders distribution based on scores
 func (c *Collection) CountHoldersDistribution() error {
 	for _, h := range c.Holders {
 		switch {

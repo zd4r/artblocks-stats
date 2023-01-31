@@ -38,6 +38,7 @@ type (
 	}
 )
 
+// New creates new config based on config.yml and env
 func New() (*Config, error) {
 	cfg := Config{}
 

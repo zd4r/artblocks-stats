@@ -15,6 +15,7 @@ type collectionRoutes struct {
 	l *zerolog.Logger
 }
 
+// newCollectionsRoutes creates new routes based on collectionRoutes
 func newCollectionsRoutes(handler *echo.Group, c usecase.Collection, l *zerolog.Logger) {
 	r := &collectionRoutes{c, l}
 
@@ -22,8 +23,11 @@ func newCollectionsRoutes(handler *echo.Group, c usecase.Collection, l *zerolog.
 	handler.GET("/collections/:id/holders", r.collectionHolders())
 }
 
+// envelope is helper type for neat response
 type envelope map[string]interface{}
 
+// collectionStats gather collection holders with scores and
+// calculate collection holders distribution based on scores
 func (cr *collectionRoutes) collectionStats() echo.HandlerFunc {
 	return func(c echo.Context) error {
 		id := c.Param("id")
@@ -56,6 +60,7 @@ func (cr *collectionRoutes) collectionStats() echo.HandlerFunc {
 	}
 }
 
+// collectionHolders gather collection holders with scores
 func (cr *collectionRoutes) collectionHolders() echo.HandlerFunc {
 	return func(c echo.Context) error {
 		id := c.Param("id")
