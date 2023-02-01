@@ -1,8 +1,9 @@
-module github.com/zd4rova/artblocks-stats
+module github.com/zd4r/artblocks-stats
 
 go 1.18
 
 require (
+	github.com/golang/mock v1.6.0
 	github.com/ilyakaznacheev/cleanenv v1.4.2
 	github.com/jmoiron/sqlx v1.3.5
 	github.com/labstack/echo/v4 v4.10.0
