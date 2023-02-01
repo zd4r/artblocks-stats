@@ -1,0 +1,118 @@
+basePath: /v1
+definitions:
+  entity.Holder:
+    properties:
+      address:
+        type: string
+      commitment_score:
+        type: number
+      portfolio_score:
+        type: number
+      tokens_amount:
+        type: integer
+      trading_score:
+        type: number
+    type: object
+  entity.HoldersDistribution:
+    properties:
+      by_commitment_score:
+        additionalProperties:
+          type: integer
+        type: object
+      by_portfolio_score:
+        additionalProperties:
+          type: integer
+        type: object
+      by_trading_score:
+        additionalProperties:
+          type: integer
+        type: object
+    type: object
+  v1.collectionHoldersResponse:
+    properties:
+      holders:
+        items:
+          $ref: '#/definitions/entity.Holder'
+        type: array
+    type: object
+  v1.collectionStatsResponse:
+    properties:
+      collection:
+        properties:
+          holders_count:
+            type: integer
+          holders_distribution:
+            $ref: '#/definitions/entity.HoldersDistribution'
+          id:
+            type: integer
+        type: object
+    type: object
+  v1.errResp:
+    properties:
+      message:
+        type: string
+    type: object
+host: localhost:8080
+info:
+  contact: {}
+  description: Collection service
+  title: Artblocks stats API
+  version: "1.0"
+paths:
+  /collections/{id}/holders:
+    get:
+      consumes:
+      - application/json
+      description: Show collection holders with scores from artacle API
+      operationId: holders
+      parameters:
+      - description: Collection ID from Artacle
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/v1.collectionHoldersResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/v1.errResp'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/v1.errResp'
+      summary: Show collection holders
+  /collections/{id}/stats:
+    get:
+      consumes:
+      - application/json
+      description: Show collection holders distribution based on artacle scores
+      operationId: stats
+      parameters:
+      - description: Collection ID from Artacle
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/v1.collectionStatsResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/v1.errResp'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/v1.errResp'
+      summary: Show collection stats
+swagger: "2.0"

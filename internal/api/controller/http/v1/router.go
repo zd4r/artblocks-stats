@@ -3,13 +3,22 @@ package v1
 import (
 	"time"
 
+	_ "github.com/zd4r/artblocks-stats/docs"
+
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 	"github.com/rs/zerolog"
-	"github.com/zd4rova/artblocks-stats/internal/api/usecase"
+	echoSwagger "github.com/swaggo/echo-swagger"
+	"github.com/zd4r/artblocks-stats/internal/api/usecase"
 )
 
 // NewRouter creates new v1 router
+// Swagger spec:
+// @title       Artblocks stats API
+// @description Collection service
+// @version     1.0
+// @host        localhost:8080
+// @BasePath    /v1
 func NewRouter(handler *echo.Echo, l *zerolog.Logger, c usecase.Collection) {
 	// Middleware
 	handler.Use(middleware.Recover())
@@ -31,6 +40,8 @@ func NewRouter(handler *echo.Echo, l *zerolog.Logger, c usecase.Collection) {
 			return nil
 		},
 	}))
+
+	handler.GET("/swagger/*", echoSwagger.WrapHandler)
 
 	// Routers
 	h := handler.Group("/v1")
