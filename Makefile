@@ -19,3 +19,7 @@ compose-build: compose-down ## Build docker compose
 
 compose-build-up: compose-down compose-build compose-up ## Build and run docker compose
 .PHONY: compose-build-up
+
+swag-v1: ### swag init
+	swag init -g internal/api/controller/http/v1/router.go -o docs
+.PHONY: swag-v1
