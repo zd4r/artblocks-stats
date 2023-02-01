@@ -15,7 +15,7 @@ import (
 // NewRouter creates new v1 router
 // Swagger spec:
 // @title       Artblocks stats API
-// @description Collection service
+// @description Collection service. Gather information about any artblocks collection.
 // @version     1.0
 // @host        localhost:8080
 // @BasePath    /v1
@@ -42,7 +42,7 @@ func NewRouter(handler *echo.Echo, l *zerolog.Logger, c usecase.Collection) {
 	}))
 
 	// Swagger
-	handler.GET("/swagger/*", echoSwagger.WrapHandler)
+	handler.GET("/api-docs/*", echoSwagger.WrapHandler)
 
 	// Routers
 	h := handler.Group("/v1")
