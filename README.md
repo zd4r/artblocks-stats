@@ -5,11 +5,11 @@ Small API to gather specific arblocks collection holders and their distribution 
 [![Go Report Card](https://goreportcard.com/badge/github.com/zd4rova/artblocks-stats)](https://goreportcard.com/report/github.com/zd4rova/artblocks-stats)
 
 ## Starting project
-Just run
+Just run:
 ```bash
 $ make compose-build-up
 ```
-And apply migrations with `docker usage` of [migrate](https://github.com/golang-migrate/migrate) applying personal DB credentials.
+And apply migrations with `docker usage` of [migrate](https://github.com/golang-migrate/migrate):
 ```bash
 $ docker run -v migrations:/migrations --network host migrate/migrate -path=/migrations/ -database 'postgres://user:pass@localhost:5432/holders?sslmode=disable' up
 ```
