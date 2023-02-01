@@ -5,6 +5,12 @@ Small API to gather specific arblocks collection holders and their distribution 
 [![Go Report Card](https://goreportcard.com/badge/github.com/zd4rova/artblocks-stats)](https://goreportcard.com/report/github.com/zd4rova/artblocks-stats)
 
 ## Starting project
+Just run
 ```bash
-> make compose-build-up
+$ make compose-build-up
 ```
+And apply migrations using [migrate](https://github.com/golang-migrate/migrate) with personal DB credentials
+```bash
+$ docker run -v migrations:/migrations --network host migrate/migrate -path=/migrations/ -database 'postgres://user:pass@localhost:5432/holders?sslmode=disable' up
+```
+Swagger API specification can be found at [http://localhost:8080/api-docs/](http://localhost:8080/api-docs/) (with default service port configuration)
