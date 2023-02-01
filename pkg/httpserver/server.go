@@ -7,8 +7,8 @@ import (
 )
 
 const (
-	readTimeout     = 10 * time.Second
-	writeTimeout    = 30 * time.Second
+	readTimeout     = 1 * time.Minute
+	writeTimeout    = 2 * time.Minute
 	addr            = ":8080"
 	shutdownTimeout = 3 * time.Second
 )
