@@ -88,7 +88,7 @@ func (r *HoldersRepo) UpdateScores(holder entity.Holder) (entity.Holder, error) 
 	query :=
 		`UPDATE holders
 		 SET updated_at = $1, commitment_score = $2, portfolio_score = $3, trading_score = $4, version = version + 1
-		 WHERE address = $6 AND version = $6
+		 WHERE address = $5 AND version = $6
 		 RETURNING version`
 
 	args := []interface{}{

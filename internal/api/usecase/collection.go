@@ -72,7 +72,7 @@ func (uc *CollectionUseCase) GetHolders(ctx context.Context, c entity.Collection
 
 		// TODO: Fix: expiration date hardcode
 		if time.Now().Sub(holder.UpdatedAt) >= 72*time.Hour {
-			holder, err = uc.webAPI.GetHolderScores(h)
+			holder, err = uc.webAPI.GetHolderScores(holder)
 			if err != nil {
 				return entity.Collection{}, fmt.Errorf("CollectionUseCase - GetHolders - uc.webAPI.GetHolderScores: %w", err)
 			}
