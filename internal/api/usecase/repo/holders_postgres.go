@@ -8,7 +8,7 @@ import (
 
 	"github.com/jmoiron/sqlx"
 
-	"github.com/zd4rova/artblocks-stats/internal/api/entity"
+	"github.com/zd4r/artblocks-stats/internal/api/entity"
 )
 
 type HoldersRepo struct {

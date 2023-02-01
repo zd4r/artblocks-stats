@@ -8,14 +8,14 @@ import (
 
 	"github.com/labstack/echo/v4"
 	_ "github.com/lib/pq"
-	"github.com/zd4rova/artblocks-stats/cmd/api/config"
-	"github.com/zd4rova/artblocks-stats/internal/api/controller/http/v1"
-	"github.com/zd4rova/artblocks-stats/internal/api/usecase"
-	"github.com/zd4rova/artblocks-stats/internal/api/usecase/repo"
-	"github.com/zd4rova/artblocks-stats/internal/api/usecase/webapi"
-	"github.com/zd4rova/artblocks-stats/pkg/httpserver"
-	"github.com/zd4rova/artblocks-stats/pkg/logger"
-	"github.com/zd4rova/artblocks-stats/pkg/postgres"
+	"github.com/zd4r/artblocks-stats/cmd/api/config"
+	"github.com/zd4r/artblocks-stats/internal/api/controller/http/v1"
+	"github.com/zd4r/artblocks-stats/internal/api/usecase"
+	"github.com/zd4r/artblocks-stats/internal/api/usecase/repo"
+	"github.com/zd4r/artblocks-stats/internal/api/usecase/webapi"
+	"github.com/zd4r/artblocks-stats/pkg/httpserver"
+	"github.com/zd4r/artblocks-stats/pkg/logger"
+	"github.com/zd4r/artblocks-stats/pkg/postgres"
 )
 
 // Run is main function continuation, which starts app
@@ -50,7 +50,7 @@ func Run(cfg *config.Config) {
 
 	// Graceful shutdown
 	interrupt := make(chan os.Signal, 1)
-	signal.Notify(interrupt, os.Interrupt, syscall.SIGTERM)
+	signal.Notify(interrupt, syscall.SIGTERM, os.Interrupt)
 
 	select {
 	case s := <-interrupt:

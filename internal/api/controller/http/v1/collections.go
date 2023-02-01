@@ -6,8 +6,8 @@ import (
 
 	"github.com/labstack/echo/v4"
 	"github.com/rs/zerolog"
-	"github.com/zd4rova/artblocks-stats/internal/api/entity"
-	"github.com/zd4rova/artblocks-stats/internal/api/usecase"
+	"github.com/zd4r/artblocks-stats/internal/api/entity"
+	"github.com/zd4r/artblocks-stats/internal/api/usecase"
 )
 
 type collectionRoutes struct {
