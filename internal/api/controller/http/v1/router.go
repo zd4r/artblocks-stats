@@ -41,6 +41,7 @@ func NewRouter(handler *echo.Echo, l *zerolog.Logger, c usecase.Collection) {
 		},
 	}))
 
+	// Swagger
 	handler.GET("/swagger/*", echoSwagger.WrapHandler)
 
 	// Routers
