@@ -9,8 +9,8 @@ Just run
 ```bash
 $ make compose-build-up
 ```
-And apply migrations using [migrate](https://github.com/golang-migrate/migrate) with personal DB credentials
+And apply migrations with `docker usage` of [migrate](https://github.com/golang-migrate/migrate) applying personal DB credentials.
 ```bash
 $ docker run -v migrations:/migrations --network host migrate/migrate -path=/migrations/ -database 'postgres://user:pass@localhost:5432/holders?sslmode=disable' up
 ```
-Swagger API specification can be found at [http://localhost:8080/api-docs/](http://localhost:8080/api-docs/) (with default service port configuration)
+Swagger API specification can be found at [http://localhost:8080/api-docs/](http://localhost:8080/api-docs/) (with default service port configuration).
