@@ -86,6 +86,7 @@ func (cr *collectionRoutes) collectionStats() echo.HandlerFunc {
 	}
 }
 
+// collectionHoldersResponse is response structure from collectionHolders method
 type collectionHoldersResponse struct {
 	Holders []entity.Holder `json:"holders"`
 }
