@@ -21,10 +21,8 @@ To start unit tests run:
 $ make test
 ```
 ## Technical stack
-
 - Backend building blocks
     - [labstack/echo/v4](https://github.com/labstack/echo)
-    - [rabbitmq/amqp091-go](https://github.com/rabbitmq/amqp091-go)
     - [jmoiron/sqlx](github.com/jmoiron/sqlx)
         - [pq](github.com/lib/pq)
     - [golang-migrate/migrate/v4](https://github.com/golang-migrate/migrate)
