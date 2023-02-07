@@ -26,7 +26,7 @@ type Holder struct {
 }
 
 // CountHoldersDistribution calculate collection holders distribution based on scores
-func (c *Collection) CountHoldersDistribution() error {
+func (c *Collection) CountHoldersDistribution() {
 	for _, h := range c.Holders {
 		switch {
 		case h.CommitmentScore < 3.5:
@@ -62,5 +62,4 @@ func (c *Collection) CountHoldersDistribution() error {
 		}
 	}
 
-	return nil
 }
