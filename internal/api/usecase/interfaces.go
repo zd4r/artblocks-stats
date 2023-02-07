@@ -22,5 +22,6 @@ type (
 	Collection interface {
 		СalculateStats(context.Context, entity.Collection) (entity.Collection, error)
 		GetHolders(context.Context, entity.Collection) (entity.Collection, error)
+		GatherHoldersScores(context.Context, entity.Collection) (entity.Collection, error)
 	}
 )

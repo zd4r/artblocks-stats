@@ -29,10 +29,7 @@ func (uc *CollectionUseCase) СalculateStats(ctx context.Context, c entity.Colle
 		return entity.Collection{}, err
 	}
 
-	err = collection.CountHoldersDistribution()
-	if err != nil {
-		return entity.Collection{}, fmt.Errorf("CollectionUseCase - Stats - collectionHoldersDistribution: %w", err)
-	}
+	collection.CountHoldersDistribution()
 
 	return collection, nil
 }
@@ -51,7 +48,17 @@ func (uc *CollectionUseCase) GetHolders(ctx context.Context, c entity.Collection
 		return entity.Collection{}, fmt.Errorf("CollectionUseCase - GetHolders - uc.webAPI.GetHolders: %w", err)
 	}
 
-	for i, h := range collection.Holders {
+	collection, err = uc.GatherHoldersScores(ctx, collection)
+	if err != nil {
+		return entity.Collection{}, err
+	}
+
+	return collection, nil
+}
+
+// GatherHoldersScores - fills []entity.Holder with scores from repo or from Artacle API if data in repo is outdated
+func (uc *CollectionUseCase) GatherHoldersScores(ctx context.Context, c entity.Collection) (entity.Collection, error) {
+	for i, h := range c.Holders {
 		holder, err := uc.repo.Get(h)
 		if err != nil {
 			switch {
@@ -82,8 +89,8 @@ func (uc *CollectionUseCase) GetHolders(ctx context.Context, c entity.Collection
 				return entity.Collection{}, fmt.Errorf("CollectionUseCase - GetHolders - uc.repo.UpdateScores: %w", err)
 			}
 		}
-		collection.Holders[i] = holder
+		c.Holders[i] = holder
 	}
 
-	return collection, nil
+	return c, nil
 }
