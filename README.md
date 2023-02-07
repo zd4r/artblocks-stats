@@ -93,7 +93,6 @@ $ curl http://localhost:8080/v1/collections/399/holders | jq .
         - [pq](github.com/lib/pq)
     - [golang-migrate/migrate/v4](https://github.com/golang-migrate/migrate)
     - Utils
-        - [google/wire](github.com/google/wire)
         - [ilyakaznacheev/cleanenv](https://github.com/ilyakaznacheev/cleanenv)
         - [rs/zerolog](https://github.com/rs/zerolog)
 - Infrastructure
