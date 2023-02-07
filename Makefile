@@ -20,6 +20,14 @@ compose-build: compose-down ## Build docker compose
 compose-build-up: compose-down compose-build compose-up ## Build and run docker compose
 .PHONY: compose-build-up
 
-swag-v1: ### swag init
+swag-v1: ## swag init
 	swag init -g internal/api/controller/http/v1/router.go -o docs
 .PHONY: swag-v1
+
+mock: ## create interfaces' mocks
+	mockgen -source=./internal/api/usecase/interfaces.go --destination=./internal/api/usecase/mocks_test.go -package=usecase_test
+.PHONY: mock
+
+test: ## run test
+	go test -v -cover -race ./internal/...
+.PHONY: test
