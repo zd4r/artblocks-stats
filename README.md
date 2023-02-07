@@ -14,3 +14,8 @@ And apply migrations with `docker usage` of [migrate](https://github.com/golang-
 $ docker run -v migrations:/migrations --network host migrate/migrate -path=/migrations/ -database 'postgres://user:pass@localhost:5432/holders?sslmode=disable' up
 ```
 Swagger API specification can be found at [http://localhost:8080/api-docs/](http://localhost:8080/api-docs/) (with default service port configuration).
+## Tests
+To start unit tests run
+```bash
+$ make test
+```
