@@ -3,8 +3,8 @@ package main
 import (
 	"log"
 
-	"github.com/zd4r/artblocks-stats/cmd/api/config"
 	"github.com/zd4r/artblocks-stats/internal/api/app"
+	"github.com/zd4r/artblocks-stats/pkg/config"
 )
 
 func main() {

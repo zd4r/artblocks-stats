@@ -16,7 +16,7 @@ RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 \
 FROM scratch
 
 # GOPATH for scratch images is /
-COPY --from=builder /app/cmd/api/config.yml /
+COPY --from=builder /app/config/config.yml /
 COPY --from=builder /bin/app /app
 COPY --from=builder /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/
 

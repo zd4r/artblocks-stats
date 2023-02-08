@@ -8,11 +8,11 @@ import (
 
 	"github.com/labstack/echo/v4"
 	_ "github.com/lib/pq"
-	"github.com/zd4r/artblocks-stats/cmd/api/config"
 	"github.com/zd4r/artblocks-stats/internal/api/controller/http/v1"
 	"github.com/zd4r/artblocks-stats/internal/api/usecase"
 	"github.com/zd4r/artblocks-stats/internal/api/usecase/repo"
 	"github.com/zd4r/artblocks-stats/internal/api/usecase/webapi"
+	"github.com/zd4r/artblocks-stats/pkg/config"
 	"github.com/zd4r/artblocks-stats/pkg/httpserver"
 	"github.com/zd4r/artblocks-stats/pkg/logger"
 	"github.com/zd4r/artblocks-stats/pkg/postgres"
