@@ -26,10 +26,13 @@ func Run(cfg *config.Config) {
 
 	// Repository
 	dbCfg := &postgres.Config{
-		URL:          cfg.PG.URL,
-		MaxOpenConns: cfg.PG.MaxOpenConns,
-		MaxIdleConns: cfg.PG.MaxIdleConns,
-		MaxIdleTime:  cfg.PG.MaxIdleTime,
+		PostgresDB:       cfg.PostgresDB,
+		PostgresUser:     cfg.PostgresUser,
+		PostgresPassword: cfg.PostgresPassword,
+		PostgresHost:     cfg.PostgresHost,
+		MaxOpenConns:     cfg.PG.MaxOpenConns,
+		MaxIdleConns:     cfg.PG.MaxIdleConns,
+		MaxIdleTime:      cfg.PG.MaxIdleTime,
 	}
 	pg, err := postgres.New(dbCfg)
 	if err != nil {

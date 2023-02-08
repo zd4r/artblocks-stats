@@ -31,10 +31,13 @@ type (
 	}
 
 	PG struct {
-		URL          string `env-required:"true"   env:"PG_URL"`
-		MaxOpenConns int    `yaml:"max_open_conns" env:"PG_MAX_OPEN_CONNS" env-default:"25"`
-		MaxIdleConns int    `yaml:"max_idle_conns" env:"PG_MAX_IDLE_CONNS" env-default:"25"`
-		MaxIdleTime  string `yaml:"max_idle_time"  env:"PG_MAX_IDLE_TIME"  env-default:"15m"`
+		PostgresDB       string `env-required:"true"   env:"POSTGRES_DB"`
+		PostgresUser     string `env-required:"true"   env:"POSTGRES_USER"`
+		PostgresPassword string `env-required:"true"   env:"POSTGRES_PASSWORD"`
+		PostgresHost     string `env-required:"true"   env:"PG_HOST"`
+		MaxOpenConns     int    `yaml:"max_open_conns" env:"PG_MAX_OPEN_CONNS" env-default:"25"`
+		MaxIdleConns     int    `yaml:"max_idle_conns" env:"PG_MAX_IDLE_CONNS" env-default:"25"`
+		MaxIdleTime      string `yaml:"max_idle_time"  env:"PG_MAX_IDLE_TIME"  env-default:"15m"`
 	}
 )
 

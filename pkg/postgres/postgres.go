@@ -14,7 +14,10 @@ const (
 )
 
 type Config struct {
-	URL string
+	PostgresDB       string
+	PostgresUser     string
+	PostgresPassword string
+	PostgresHost     string
 
 	MaxOpenConns int
 	MaxIdleConns int
@@ -26,7 +29,10 @@ type Postgres struct {
 }
 
 func New(cfg *Config) (*Postgres, error) {
-	db, err := sqlx.Open("postgres", cfg.URL)
+	pgUrl := fmt.Sprintf("postgres://%s:%s@%s/%s?sslmode=disable",
+		cfg.PostgresUser, cfg.PostgresPassword, cfg.PostgresHost, cfg.PostgresDB)
+
+	db, err := sqlx.Open("postgres", pgUrl)
 	if err != nil {
 		return nil, fmt.Errorf("postgres - New - sqlx.Open: %w", err)
 	}
