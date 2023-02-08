@@ -36,7 +36,7 @@ func (c *Collection) CountHoldersDistribution() {
 		case h.CommitmentScore >= 4 && h.CommitmentScore < 4.5:
 			c.HoldersDistribution.ByCommitmentScore["[4 - 4.5)"] += 1
 		case h.CommitmentScore >= 4.5 && h.CommitmentScore <= 5:
-			c.HoldersDistribution.ByCommitmentScore["[4 - 4.5]"] += 1
+			c.HoldersDistribution.ByCommitmentScore["[4.5 - 5]"] += 1
 		}
 
 		switch {
@@ -47,7 +47,7 @@ func (c *Collection) CountHoldersDistribution() {
 		case h.PortfolioScore >= 4 && h.PortfolioScore < 4.5:
 			c.HoldersDistribution.ByPortfolioScore["[4 - 4.5)"] += 1
 		case h.PortfolioScore >= 4.5 && h.PortfolioScore <= 5:
-			c.HoldersDistribution.ByPortfolioScore["[4 - 4.5]"] += 1
+			c.HoldersDistribution.ByPortfolioScore["[4.5 - 5]"] += 1
 		}
 
 		switch {
@@ -58,7 +58,7 @@ func (c *Collection) CountHoldersDistribution() {
 		case h.TradingScore >= 4 && h.TradingScore < 4.5:
 			c.HoldersDistribution.ByTradingScore["[4 - 4.5)"] += 1
 		case h.TradingScore >= 4.5 && h.TradingScore <= 5:
-			c.HoldersDistribution.ByTradingScore["[4 - 4.5]"] += 1
+			c.HoldersDistribution.ByTradingScore["[4.5 - 5]"] += 1
 		}
 	}
 
