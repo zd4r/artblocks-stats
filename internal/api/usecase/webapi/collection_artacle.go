@@ -55,7 +55,9 @@ func (a *ArtacleWebAPI) GetHoldersCount(collection entity.Collection) (entity.Co
 
 type GetHoldersResp struct {
 	OwnersProfit []struct {
-		Owner                 string  `json:"owner"`
+		Profile               string  `json:"profile"`
+		Wallet                string  `json:"wallet"`
+		ProfileName           string  `json:"profileName"`
 		BalanceOut            float64 `json:"balanceOut"`
 		BalanceIn             float64 `json:"balanceIn"`
 		BalanceAll            float64 `json:"balanceAll"`
@@ -69,11 +71,11 @@ type GetHoldersResp struct {
 		TransferTokenDeltaIn  int     `json:"transferTokenDeltaIn"`
 		TransferTokenDeltaOut int     `json:"transferTokenDeltaOut"`
 		LastTransaction       int64   `json:"lastTransaction"`
-		OwnerName             string  `json:"ownerName"`
-		OwnerOSName           string  `json:"ownerOSName"`
-		OwnerLabel            string  `json:"ownerLabel"`
-		OwnerAddrType         string  `json:"ownerAddrType"`
-		OwnerBalance          string  `json:"ownerBalance"`
+		EnsName               string  `json:"ensName"`
+		OsName                string  `json:"osName"`
+		Label                 string  `json:"label"`
+		AddrType              string  `json:"addrType"`
+		OwnerBalance          float64 `json:"ownerBalance"`
 	} `json:"ownersProfit"`
 }
 
@@ -107,7 +109,7 @@ func (a *ArtacleWebAPI) GetHolders(collection entity.Collection) (entity.Collect
 
 	var holder entity.Holder
 	for i, op := range respData.OwnersProfit {
-		holder.Address = op.Owner
+		holder.Address = op.Wallet
 		holder.TokensAmount = op.TokensAll
 		collection.Holders[i] = holder
 	}
